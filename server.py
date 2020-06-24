@@ -45,7 +45,7 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/':
             self.send_response(301)
-            self.send_header('Location', '/index.html')
+            self.send_header('Location', '/home/pi/Projects/pistreaming/index.html')
             self.end_headers()
             return
         elif self.path == '/jsmpg.js':
@@ -58,7 +58,7 @@ class StreamingHttpHandler(BaseHTTPRequestHandler):
                 WS_PORT=WS_PORT, WIDTH=WIDTH, HEIGHT=HEIGHT, COLOR=COLOR,
                 BGCOLOR=BGCOLOR))
         else:
-            self.send_error(404, 'File not found')
+            self.send_error(404, 'Ori, The File not found...')
             return
         content = content.encode('utf-8')
         self.send_response(200)
@@ -74,9 +74,9 @@ class StreamingHttpServer(HTTPServer):
     def __init__(self):
         super(StreamingHttpServer, self).__init__(
                 ('', HTTP_PORT), StreamingHttpHandler)
-        with io.open('index.html', 'r') as f:
+        with io.open('/home/pi/Projects/pistreaming/index.html', 'r') as f:
             self.index_template = f.read()
-        with io.open('jsmpg.js', 'r') as f:
+        with io.open('/home/pi/Projects/pistreaming/jsmpg.js', 'r') as f:
             self.jsmpg_content = f.read()
 
 
